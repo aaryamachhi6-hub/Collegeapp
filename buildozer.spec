@@ -1,23 +1,22 @@
-[app]
+name: Build APK
 
-title = College AI Assistant
+on:
+  workflow_dispatch:
 
-package.name = collegeai
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-package.domain = org.college
+    steps:
+      - uses: actions/checkout@v4
 
-source.dir = .
+      - name: Build APK
+        uses: ArtemSBulgakov/buildozer-action@v1
+        with:
+          command: buildozer android debug
 
-source.include_exts = py,png,jpg,kv,db
-
-version = 1.0
-
-requirements = python3,kivy
-
-orientation = portrait
-
-fullscreen = 0
-
-[buildozer]
-
-log_level = 2
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: bin/*.apk
