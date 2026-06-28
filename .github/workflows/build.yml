@@ -26,3 +26,5 @@ jobs:
       - name: Build APK
         run: |
           buildozer android debug
+          - name: Accept Android Licenses
+  run: yes | sdkmanager --licenses || true
